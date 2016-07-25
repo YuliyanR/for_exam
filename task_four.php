@@ -21,32 +21,31 @@ $arrayErr = "";
 $string = "";
 $new_array = [];
 $explode = "";
-
+$max = $min = $count = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["value"])) {
     $arrayErr = "Insert corect a values";
   } else {
-    $string = test_input($_POST["value"]);
-    for ($i = 0; $i < count($string); $i++) {   	
-    if (!preg_match("/^[0-9][0-9,.]*$/" ,$string[$i])) {
-    $arrayErr = "Invalid a values"; 
-   	 } 
+    $string = test_input($_POST["value"]);  
+    $explode = count(explode(',', $string));
+    $count = count($explode);
+    if ($explode != 10) {
+    	$arrayErr = "Invalid input";
     } 
+    for($j = 0; $j < strlen($string)-1; $j++) {
+    	if ($string[$j] == ',' && $string[$j+1] == ',') {
+    		$arrayErr = "Invalid input";
+    	}
+    }
+    if (!preg_match("/^[0-9][0-9,]*$/" ,$string)) {
+    $arrayErr = "Invalid a values"; 
+   	 } 	 
   }
 }
-
-$explode = count(explode(',', $string));
-if ($explode != 10) {
-	$arrayErr = "Invalid input";
-}
-
-for ($i = 0; $i < count($string); $i++) {
-	if (is_numeric($string[$i])) {
-		$new_array[] = $string[$i];
-	} else if (!is_numeric($string[$i])) {
-		$new_array [] = $string[$i];
-	}
-}
+$new_array = split("\,", $string);
+$new_array[] = asort($new_array);
+$max = max($new_array);
+$min = min($new_array);
 
 function test_input($data) {
 	$data = trim($data);
@@ -70,7 +69,13 @@ function test_input($data) {
 </form>
 <?php
 echo "<h2>Result:</h2>";
-echo $explode;
+foreach ($new_array as $a) {
+echo $a.'   ';
+}
+echo '<br>';
+echo "Min = $min";
+echo '<br>';
+echo "Max = $max";
 ?>
 </body>
 </html>
