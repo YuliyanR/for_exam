@@ -22,6 +22,7 @@ $string = "";
 $new_array = [];
 $explode = "";
 $max = $min = $count = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["value"])) {
     $arrayErr = "Insert corect a values";
@@ -29,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $string = test_input($_POST["value"]);  
     $explode = count(explode(',', $string));
     $count = count($explode);
+ 
     if ($explode != 10) {
     	$arrayErr = "Invalid input";
     } 
