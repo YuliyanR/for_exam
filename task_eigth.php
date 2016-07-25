@@ -1,19 +1,34 @@
-<?php 
-$input = "";
-$input = isset($_POST['input'])?($_POST['input']+1):0;
+if($_GET){
+    $_SESSION["submit"] = 0;
+}
+if($_POST){
+    $_SESSION["submit"] ++;
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Task eigth</title>
+    <meta charset="UTF-8">
+    <title>Regster</title>
 <style>
-input {
-	display:none;
+label {
+	display:block;
+}
+div {
+	margin-bottom: 0.5em;
 }
 </style>
 </head>
 <body>
-	<input type="text" name="input" value="<?= $input;?>">
+    <form class="form" method="post" action="">
+        <div>
+            <label for="">Submit</label>
+            <input  name="submit" value=" <?=$_SESSION["submit"]?> times">
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>
